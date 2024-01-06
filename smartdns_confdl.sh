@@ -4,7 +4,7 @@
 tr_gfwlist()
 {
 	base64 -d gfwlist.txt > gfwlist_decoded.txt
-	grep -v "@@" ./gfwlist_decoded.txt | grep -E -o "(([a-z0-9A-Z])+(-)*([a-z0-9A-Z])+\.)+([a-zA-Z]){2,6}" | sed 's/^\.//' | sort | uniq -u > ./gfwlist_domains.txt
+	grep -v "@@" ./gfwlist_decoded.txt | grep -E -o "(([a-z0-9A-Z])+(-)*([a-z0-9A-Z])+\.)+([a-zA-Z]){2,6}" | sed 's/^\.//' | sort | uniq > ./gfwlist_domains.txt
 	echo "[$(date "+%Y-%m-%d %H:%M:%S")][INFO] GFW domains saved to gfwlist_domains.txt." >> /var/log/smartdns/smartdns.log
 	cp -rf ./gfwlist_domains.txt /etc/smartdns/domain-set/gfw.conf
 	echo "[$(date "+%Y-%m-%d %H:%M:%S")][INFO] GFW domains copied to domain sets. Cleaning up..." >> /var/log/smartdns/smartdns.log
@@ -14,7 +14,7 @@ tr_gfwlist()
 # Function to transform dnsmasq-china-conf and copy to smartdns domain sets
 tr_chinalist()
 {
-	grep -E -o "(([a-z0-9A-Z])+(-)*([a-z0-9A-Z])+\.)+([a-zA-Z]){2,6}" ./chinalist.txt | sort | uniq -u > ./chinalist_domains.txt
+	grep -E -o "(([a-z0-9A-Z])+(-)*([a-z0-9A-Z])+\.)+([a-zA-Z]){2,6}" ./chinalist.txt | sort | uniq > ./chinalist_domains.txt
 	echo "[$(date "+%Y-%m-%d %H:%M:%S")][INFO] China domains saved to chinalist_domains.txt." >> /var/log/smartdns/smartdns.log
 	cp -rf ./chinalist_domains.txt /etc/smartdns/domain-set/china.conf
 	echo "[$(date "+%Y-%m-%d %H:%M:%S")][INFO] China domains copied to domain sets. Cleaning up..." >> /var/log/smartdns/smartdns.log
